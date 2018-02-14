@@ -283,17 +283,22 @@ abstract class EE_Gateway{
 
 
 	/**
-	 * @param $message
-	 * @param $payment
+     * Logs the message to the DB, records the object it was attached to.
+     * 
+	 * @param string $message
+	 * @param EEI_Payment|EEI_Payment_Method|EEI_Transaction $object_logged
 	 */
-	public function log($message,$payment){
-		if($payment instanceof EEI_Payment){
+	public function log($message,$object_logged){
+		if($object_logged instanceof EEI_Payment){
 			$type='Payment';
-			$id = $payment->ID();
-		}else{
+			$id = $object_logged->ID();
+		}elseif($object_logged instanceof EEI_Payment_Method) {
 			$type = 'Payment_Method';
 			$id = $this->_ID;
-		}
+		}elseif($object_logged instanceof EEI_Transaction) {
+		    $type = 'Transaction';
+		    $id = $object_logged->ID();
+        }
 		$this->_pay_log->gateway_log($message,$id,$type);
 	}
 	/**
