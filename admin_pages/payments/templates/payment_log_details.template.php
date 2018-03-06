@@ -50,8 +50,13 @@ if (!defined('EVENT_ESPRESSO_VERSION'))
 					</label>
 				</th>
 				<td>
-					<?php echo $payment_method ? $payment_method->admin_name() : __("No Longer Exists", 'event_espresso')?>
-
+					<?php 
+						if($payment_log->object() instanceof EE_Transaction) {
+							echo __('Unknown', 'event_espresso');
+						} else {
+							echo $payment_method ? $payment_method->admin_name() : __("No Longer Exists", 'event_espresso');
+						}
+					?>
 				</td>
 			</tr>
 			<tr>
