@@ -196,11 +196,8 @@ class Payment_Log_Admin_List_Table extends EE_Admin_List_Table
             return $item->object()->admin_name();
         } elseif ($item->object() instanceof EE_Payment && $item->object()->payment_method()) {
             return $item->object()->payment_method()->admin_name();
-        } elseif ($item->object() instanceof EE_Transaction && $item->object()->payment_method()) {
-            return sprintf(
-                esc_html__('Probably %1$s', 'event_espresso'),
-                $item->object()->payment_method()->admin_name()
-            );
+        } elseif ($item->object() instanceof EE_Transaction) {
+            return __('Unknown', 'event_espresso');
         } else {
             return __("No longer exists", 'event_espresso');
         }
