@@ -960,6 +960,12 @@ final class EE_System implements ResettableInterface
                         array($editor_block_collection, $this->request)
                     );
                 }
+                if ($this->request->isAdmin()) {
+                    $this->loader->getShared(
+                        'EventEspresso\core\services\editor\EspressoGutenbergEditor',
+                        array($editor_block_collection, $this->request)
+                    );
+                }
             }
         } catch (Exception $exception) {
             new ExceptionStackTraceDisplay($exception);
