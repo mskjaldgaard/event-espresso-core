@@ -703,6 +703,16 @@ class EE_Dependency_Map
             'EventEspresso\modules\ticket_selector\TicketDatetimeAvailabilityTracker' => array(
                 'EEM_Datetime' => EE_Dependency_Map::load_from_cache,
             ),
+            'EventEspresso\core\domain\entities\custom_post_types\CustomPostTypeDefinitions' => array(
+                'EE_Core_Config' => EE_Dependency_Map::load_from_cache,
+                'EventEspresso\core\services\loaders\Loader' => EE_Dependency_Map::load_from_cache,
+            ),
+            'EventEspresso\core\domain\services\custom_post_types\RegisterCustomPostTypes'   => array(
+                'EventEspresso\core\domain\entities\custom_post_types\CustomPostTypeDefinitions' => EE_Dependency_Map::load_from_cache,
+            ),
+            'EventEspresso\core\domain\services\custom_post_types\RegisterCustomTaxonomies'   => array(
+                'EventEspresso\core\domain\entities\custom_post_types\CustomTaxonomyDefinitions' => EE_Dependency_Map::load_from_cache,
+            ),
             'EventEspresso\core\services\editor\EditorBlockRegistrationManager'      => array(
                 'EventEspresso\core\domain\entities\editor\EditorBlockCollection' => EE_Dependency_Map::load_from_cache,
                 'EE_Request'                                                      => EE_Dependency_Map::load_from_cache,
