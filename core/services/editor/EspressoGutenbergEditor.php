@@ -2,7 +2,9 @@
 
 namespace EventEspresso\core\services\editor;
 
-use EE_Register_CPTs;
+use EventEspresso\core\domain\entities\custom_post_types\CustomPostTypeDefinitions;
+use EventEspresso\core\domain\entities\editor\BlockCollection;
+use EventEspresso\core\services\request\RequestInterface;
 use WP_Post_Type;
 
 defined('EVENT_ESPRESSO_VERSION') || exit;
@@ -17,8 +19,32 @@ defined('EVENT_ESPRESSO_VERSION') || exit;
  * @author  Brent Christensen
  * @since   $VID:$
  */
-class EspressoGutenbergEditor extends EditorBlockManager
+class EspressoGutenbergEditor extends BlockManager
 {
+
+    /**
+     * @var CustomPostTypeDefinitions $custom_post_types
+     */
+    protected $custom_post_types;
+
+
+    /**
+     * EspressoGutenbergEditor constructor.
+     *
+     * @param CustomPostTypeDefinitions $custom_post_types
+     * @param BlockCollection           $blocks
+     * @param RequestInterface          $request
+     */
+    public function __construct(
+        CustomPostTypeDefinitions $custom_post_types,
+        BlockCollection $blocks,
+        RequestInterface $request
+    ) {
+        $this->custom_post_types = $custom_post_types;
+        parent::__construct($blocks, $request);
+    }
+
+
 
     /**
      *  Returns the name of a hookpoint to be used to call initialize()
@@ -38,14 +64,14 @@ class EspressoGutenbergEditor extends EditorBlockManager
      */
     public function initialize()
     {
-        $custom_post_types     = EE_Register_CPTs::get_CPTs();
-        $espresso_post_types   = array_keys($custom_post_types);
+        $custom_post_types   = $this->custom_post_types->getCustomPostTypeSlugs();
+        $espresso_post_types = $custom_post_types;
         $espresso_post_types[] = 'espresso_registrations';
         if (
             ($this->action === 'edit' || $this->action === 'create_new' || $this->action === 'edit_attendee')
             && in_array($this->page, $espresso_post_types, true)
         ) {
-            $this->loadCustomPostTypeBlockEditor(array_keys($custom_post_types));
+            $this->loadCustomPostTypeBlockEditor($custom_post_types);
         }
         add_action('admin_url', array($this, 'coerceEeCptEditorUrlForGutenberg'), 10, 3);/**/
     }
