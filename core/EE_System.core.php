@@ -980,14 +980,10 @@ final class EE_System implements ResettableInterface
                 );
             }
             if (function_exists('register_block_type')) {
-                $editor_block_collection = $this->loader->getShared(
-                    'EventEspresso\core\domain\entities\editor\EditorBlockCollection'
-                );
                 // or the even newer newer new way
                 if ($this->request->isFrontend() || $this->request->isIframe() || $this->request->isAdmin()) {
                     $this->loader->getShared(
-                        'EventEspresso\core\services\editor\EditorBlockRegistrationManager',
-                        array($editor_block_collection, $this->request)
+                        'EventEspresso\core\services\editor\BlockRegistrationManager'
                     );
                 }
                 if ($this->request->isAdmin()) {
@@ -1069,7 +1065,7 @@ final class EE_System implements ResettableInterface
         add_action('init', array($this, 'initialize_last'), 100);
         if (is_admin() && apply_filters('FHEE__EE_System__brew_espresso__load_pue', true)) {
             // pew pew pew
-            $this->loader->getShared('EE_PUE');
+            $this->loader->getShared('EventEspresso\core\services\licensing\LicenseService');
             do_action('AHEE__EE_System__brew_espresso__after_pue_init');
         }
         do_action('AHEE__EE_System__brew_espresso__complete', $this);

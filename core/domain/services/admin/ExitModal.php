@@ -2,6 +2,7 @@
 namespace EventEspresso\core\domain\services\admin;
 
 use EventEspresso\core\services\assets\Registry;
+use const FILTER_VALIDATE_BOOLEAN;
 use InvalidArgumentException;
 use WP_User;
 
@@ -13,7 +14,7 @@ use WP_User;
  *
  * @package EventEspresso\core\domain\services\admin
  * @author  Darren Ethier
- * @since   $VID:$
+ * @since   4.9.59.p
  */
 class ExitModal
 {
