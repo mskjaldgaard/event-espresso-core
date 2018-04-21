@@ -755,9 +755,9 @@ class EE_Dependency_Map
                 'EventEspresso\core\domain\entities\custom_post_types\CustomTaxonomyDefinitions' => EE_Dependency_Map::load_from_cache,
             ),
             'EventEspresso\core\services\editor\EspressoGutenbergEditor' => array(
-                'EventEspresso\core\domain\entities\editor\EditorBlockCollection' => EE_Dependency_Map::load_from_cache,
-                'EE_Request'                                                      => EE_Dependency_Map::load_from_cache,
-                'EventEspresso\core\domain\Domain'                                => EE_Dependency_Map::load_from_cache,
+                'EventEspresso\core\domain\entities\custom_post_types\CustomPostTypeDefinitions' => EE_Dependency_Map::load_from_cache,
+                'EventEspresso\core\domain\entities\editor\BlockCollection'                      => EE_Dependency_Map::load_from_cache,
+                'EventEspresso\core\services\request\Request'                                    => EE_Dependency_Map::load_from_cache,
             ),
             'EventEspresso\core\domain\entities\editor\blocks\shortcodes\EventsList'     => array(
                 'EventEspresso\core\domain\Domain' => EE_Dependency_Map::load_from_cache,
