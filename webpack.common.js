@@ -11,6 +11,10 @@ const externals = {
 	'@wordpress/element': 'wp.element',
 	'@wordpress/components': 'wp.components',
 	'@wordpress/blocks': 'wp.blocks',
+	'@wordpress/editor': 'wp.editor',
+};
+const alias = {
+	'@eventespresso/components': path.resolve( __dirname, assets + 'components' ),
 };
 const reactVendorPackages = [
 	'react',
@@ -63,6 +67,9 @@ const config = [
 			],
 		},
 		externals,
+		resolve: {
+			alias,
+		},
 		output: {
 			filename: 'ee-[name].[chunkhash].dist.js',
 			path: path.resolve( __dirname, 'assets/dist' ),
